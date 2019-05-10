@@ -31,3 +31,51 @@
     transform: rotate(360deg);
   }
 }
+.container {
+  margin: 2vw;
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px;
+  padding-top: 0px;
+}
+
+.container-children {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.container-children.left {
+  align-items: flex-start;
+}
+
+.container-children.center {
+  align-items: center;
+}
+
+.container-children.right {
+  align-items: flex-end;
+}
+
+.container-children.vertical {
+  flex-direction: column;
+}
+
+.container-children.horizontal {
+  flex-direction: row;
+}
+
+.container.left {
+  text-align: left;
+}
+
+.container.center {
+  text-align: center;
+}
+
+.container.right {
+  text-align: right;
+}
+
+
+

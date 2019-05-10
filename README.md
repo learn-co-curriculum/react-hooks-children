@@ -1,68 +1,108 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Introduction to React Children 
 
-## Available Scripts
+## Why do we need `children`?
+In HTML, encapsulating several bits of UI can be as easy as wrapping them in a single element. For example:
 
-In the project directory, you can run:
+```html
+<div class="container">
+  <h1>Hello, I'm in a container!</h1>
+  <p>I'm a description!</p>
+</div>
+```
 
-### `npm start`
+In the above code, the `h1` and `p` tags are direct children of the `div`, meaning that they are rendered within `div`. In other words, they are **part** of the `div`.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In React, you might create a reusable version of this HTML by doing the following:
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```jsx
+function Header (props) {
+  return (
+    <div class="container">
+      <h1>{props.header}</h1>
+      <p>{props.description}</p>
+    </div>
+  )
+}
+```
+The `header` and `description` props help us make the Header component reusable, as seen here:
 
-### `npm test`
+```jsx
+ReactDOM.render(
+  <div>
+    <Header header="Hello, I'm in a container!", description="I'm a description!" />
+    <Header header="I'm another container", description="Whoa that's weird!" />
+    <Header header="A third container!", description="Cray cray" />
+  </div>,
+  document.getElementById('root')
+)
+```
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This is great when we want UI that has the same structure with different text/attributes. We can even use conditional rendering to help us choose when to render parts of the UI. Not bad! But consider the following HTML:
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```html
+<div class="container">
+  <h1>Hello, I'm in a container!</h1>
+  <p>I'm a description!</p>
+</div>
+<div class="container">
+  <strong>Image description</strong>
+  <div class="image-wrapper"/>
+    <img src="img/src" alt="text"/>
+  </div>
+</div>
+<div class="container">
+  <h4>People</h4>
+  <ul>
+    <li>Evans "Wangtron" Wang</li>
+    <li>Andrew "Chrome Boi" Cohn </li>
+    <li>Tashawn "Thursdays" Williams</li>
+  </ul>
+</div>
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+In this example, we have 3 `div`s each with the same class name, but entirely different children and internal structure. `props` won't help us here: each `div` has such radically different content. From what we know of React, we would be forced to write 3 different components, each with the same wrapping `div` but entirely different contents. Wouldn't it be nice if you could write one component that can keep much of the same *external* structure but render different components *internally*? Enter the `children` prop.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How do we make `children`?
 
-### `npm run eject`
+So far you've seen components rendered like this:
+```jsx
+function Example (props){
+  return(
+    <div>
+      {props.exampleProp}
+    <div>
+  )
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<Example exampleProp="example value" />
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+However React allows you to use your components as wrappers like most HTML elements:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```jsx
+<Example exampleProp="example value">
+  <h1>Example header!</h1>
+  <p>Some example text</p>
+</Example>
+```
+If you were to use the above definition of the `Example` component, you would observe no difference at all: the `h1` and `p` would not be rendered. However, if you inspect the props in `Example`, you'll notice a new prop has been added: `children`. A closer look at this prop reveals that this props contains an array, and at each element of the array is a component! In this case, you'll see an `h1` and a `p` tag, in that order. Rendering these children is the same as rendering any array of components:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```jsx
+function Example (props){
+  return(
+    <div>
+      {props.exampleProp}
+      {props.children}
+    <div>
+  )
+}
+```
 
-## Learn More
+And voila! You have a component that is able to render its children! Any valid JSX elements, including your own components and nested JSX elements, can be used as children.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## An example of working `children`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To run our example, run `npm install && npm start`
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+You'll notice that our `App` component renders 2 `Container` components, each with distinct children. Take a look at the code for `Container`: spend some time figuring out what each prop does. (Note: `defaultProps` allows a developer to specify a value for a prop in the case that you don't pass any values for that prop). You'll notice there are 5 props: direction, header, textPosition, and children. We've already discussed children, but try to figure out what the others do!
