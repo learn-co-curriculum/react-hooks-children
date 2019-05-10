@@ -57,6 +57,7 @@ This is great when we want UI that has the same structure with different text/at
     <li>Evans "Wangtron" Wang</li>
     <li>Andrew "Chrome Boi" Cohn </li>
     <li>Tashawn "Thursdays" Williams</li>
+    <li>Alex "Friggin'" Griffith</li>
   </ul>
 </div>
 ```
