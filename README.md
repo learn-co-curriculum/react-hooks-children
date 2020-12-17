@@ -1,7 +1,9 @@
-# Introduction to React Children 
+# Introduction to React Children
 
 ## Why do we need `children`?
-In HTML, encapsulating several bits of UI can be as easy as wrapping them in a single element. For example:
+
+In HTML, encapsulating several bits of UI can be as easy as wrapping them in a
+single element. For example:
 
 ```html
 <div class="container">
@@ -10,21 +12,25 @@ In HTML, encapsulating several bits of UI can be as easy as wrapping them in a s
 </div>
 ```
 
-In the above code, the `h1` and `p` tags are direct children of the `div`, meaning that they are rendered within `div`. In other words, they are **part** of the `div`.
+In the above code, the `h1` and `p` tags are direct children of the `div`,
+meaning that they are rendered within `div`. In other words, they are **part**
+of the `div`.
 
 In React, you might create a reusable version of this HTML by doing the following:
 
 ```jsx
-function Header (props) {
+function Header(props) {
   return (
     <div class="container">
       <h1>{props.header}</h1>
       <p>{props.description}</p>
     </div>
-  )
+  );
 }
 ```
-The `header` and `description` props help us make the Header component reusable, as seen here:
+
+The `header` and `description` props help us make the Header component reusable,
+as seen here:
 
 ```jsx
 ReactDOM.render(
@@ -37,8 +43,9 @@ ReactDOM.render(
 )
 ```
 
-This is great when we want UI that has the same structure with different text/attributes. We can even use conditional rendering to help us choose when to render parts of the UI. Not bad! But consider the following HTML:
-
+This is great when we want UI that has the same structure with different
+text/attributes. We can even use conditional rendering to help us choose when to
+render parts of the UI. Not bad! But consider the following HTML:
 
 ```html
 <div class="container">
@@ -62,11 +69,18 @@ This is great when we want UI that has the same structure with different text/at
 </div>
 ```
 
-In this example, we have 3 `div`s each with the same class name, but entirely different children and internal structure. `props` won't help us here: each `div` has such radically different content. From what we know of React, we would be forced to write 3 different components, each with the same wrapping `div` but entirely different contents. Wouldn't it be nice if you could write one component that can keep much of the same *external* structure but render different components *internally*? Enter the `children` prop.
+In this example, we have 3 `div`s each with the same class name, but entirely
+different children and internal structure. `props` won't help us here: each
+`div` has such radically different content. From what we know of React, we would
+be forced to write 3 different components, each with the same wrapping `div` but
+entirely different contents. Wouldn't it be nice if you could write one
+component that can keep much of the same _external_ structure but render
+different components _internally_? Enter the `children` prop.
 
 ## How do we make `children`?
 
 So far you've seen components rendered like this:
+
 ```jsx
 function Example (props){
   return(
@@ -79,7 +93,8 @@ function Example (props){
 <Example exampleProp="example value" />
 ```
 
-However React allows you to use your components as wrappers like most HTML elements:
+However React allows you to use your components as wrappers like most HTML
+elements:
 
 ```jsx
 <Example exampleProp="example value">
@@ -87,7 +102,14 @@ However React allows you to use your components as wrappers like most HTML eleme
   <p>Some example text</p>
 </Example>
 ```
-If you were to use the above definition of the `Example` component, you would observe no difference at all: the `h1` and `p` would not be rendered. However, if you inspect the props in `Example`, you'll notice a new prop has been added: `children`. A closer look at this prop reveals that this props contains an array, and at each element of the array is a component! In this case, you'll see an `h1` and a `p` tag, in that order. Rendering these children is the same as rendering any array of components:
+
+If you were to use the above definition of the `Example` component, you would
+observe no difference at all: the `h1` and `p` would not be rendered. However,
+if you inspect the props in `Example`, you'll notice a new prop has been added:
+`children`. A closer look at this prop reveals that this props contains an
+array, and at each element of the array is a component! In this case, you'll see
+an `h1` and a `p` tag, in that order. Rendering these children is the same as
+rendering any array of components:
 
 ```jsx
 function Example (props){
@@ -100,10 +122,22 @@ function Example (props){
 }
 ```
 
-And voila! You have a component that is able to render its children! Any valid JSX elements, including your own components and nested JSX elements, can be used as children.
+And voila! You have a component that is able to render its children! Any valid
+JSX elements, including your own components and nested JSX elements, can be used
+as children.
 
 ## An example of working `children`
 
 To run our example, run `npm install && npm start`
 
-You'll notice that our `App` component renders 2 `Container` components, each with distinct children. Take a look at the code for `Container`: spend some time figuring out what each prop does. (Note: `defaultProps` allows a developer to specify a value for a prop in the case that you don't pass any values for that prop). You'll notice there are 5 props: direction, header, textPosition, and children. We've already discussed children, but try to figure out what the others do!
+You'll notice that our `App` component renders two `Container` components, each
+with distinct children. Take a look at the code for `Container`: spend some time
+figuring out what each prop does. (Note: we're using default values for our
+destructured props to provide a value for a prop in case no values are provided
+by the parent component). You'll notice there are 5 props: `direction`,
+`header`, `textPosition`, `contentPosition`, and `children`. We've already
+discussed `children`, but try to figure out what the others do!
+
+## Resources
+
+- [Composition vs Inheritance](https://reactjs.org/docs/composition-vs-inheritance.html)
