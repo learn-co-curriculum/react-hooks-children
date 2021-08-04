@@ -23,7 +23,7 @@ of the `div`.
 
 In React, you might create a reusable version of this HTML by doing the following:
 
-```js
+```jsx
 function Header(props) {
   return (
     <div class="container">
@@ -37,7 +37,7 @@ function Header(props) {
 The `header` and `description` props help us make the Header component reusable,
 as seen here:
 
-```js
+```jsx
 ReactDOM.render(
   <div>
     <Header header="Hello, I'm in a container!", description="I'm a description!" />
@@ -87,7 +87,7 @@ different components _internally_? Enter the `children` prop.
 So far you've seen components rendered like this using the **self-closing tag**
 syntax:
 
-```js
+```jsx
 function Example(props) {
   return <div>{props.exampleProp}</div>;
 }
@@ -115,7 +115,7 @@ each element of the array is a component! In this case, you'll see an `h1` and a
 `p` tag, in that order. Rendering these children is the same as rendering any
 array of components:
 
-```js
+```jsx
 function Example(props) {
   return (
     <div>
