@@ -110,10 +110,10 @@ observe no difference at all: the `h1` and `p` would not be rendered. However,
 if you inspect the props in `Example`, you'll notice a new prop has been added:
 `children`.
 
-A closer look at this prop reveals that this props contains an array, and at
-each element of the array is a component! In this case, you'll see an `h1` and a
-`p` tag, in that order. Rendering these children is the same as rendering any
-array of components:
+A closer look at this prop reveals that it contains an array, and that each
+element of the array is a component! In this case, you'll see an `h1` and a `p`
+tag, in that order. Rendering these children is the same as rendering any array
+of components:
 
 ```jsx
 function Example(props) {
@@ -138,8 +138,8 @@ To run our example, run `npm install && npm start`.
 You'll notice that our `App` component renders two `Container` components, each
 with distinct children. Take a look at the code for `Container`: spend some time
 figuring out what each prop does. (Note: we're using default values for our
-destructured props to provide a value for a prop in case no values are provided
-by the parent component). You'll notice there are 5 props: `direction`,
+destructured props in case values are not passed in
+by the parent component.) You'll notice there are 5 props: `direction`,
 `header`, `textPosition`, `contentPosition`, and `children`. We've already
 discussed `children`, but try to figure out what the others do!
 
@@ -149,7 +149,7 @@ Using React Children greatly expands your ability to make reusable components.
 While you won't see as many examples of this style of writing components when
 you're first getting started with React, this pattern is an incredibly useful
 one to master. In addition to helping with component reusability, it can also
-help with needing to pass props down multiple levels of the component hierarchy.
+help with passing props down multiple levels of the component hierarchy.
 
 ## Resources
 
