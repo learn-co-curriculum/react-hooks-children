@@ -148,8 +148,9 @@ discussed `children`, but try to figure out what the others do!
 Using React Children greatly expands your ability to make reusable components.
 While you won't see as many examples of this style of writing components when
 you're first getting started with React, this pattern is an incredibly useful
-one to master. In addition to helping with component reusability, it can also
-help with passing props down multiple levels of the component hierarchy.
+one to become super familiar with. In addition to helping with component
+reusability, it can also help with passing props down multiple levels of the
+component hierarchy.
 
 ## Resources
 
