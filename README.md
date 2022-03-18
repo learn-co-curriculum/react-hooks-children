@@ -105,15 +105,17 @@ closing tag**, like most HTML elements:
 </Example>
 ```
 
-If you were to use the above definition of the `Example` component, you would
-observe no difference at all: the `h1` and `p` would not be rendered. However,
-if you inspect the props in `Example`, you'll notice a new prop has been added:
-`children`.
+If you were to replace the original definition of the `Example` component with
+the above and view it in the browser, you would observe no difference at all on
+the page: it would still only show "example value". However, if you inspected
+the props in `Example`, you'd see that a new prop has been added:
 
-A closer look at this prop reveals that it contains an array, and that each
-element of the array is a component! In this case, you'll see an `h1` and a `p`
-tag, in that order. Rendering these children is the same as rendering any array
-of components:
+![children prop](https://curriculum-content.s3.amazonaws.com/phase-2/react-hooks-children/children-prop.png)
+
+React has created this `children` prop for us. It contains an array that stores
+the html elements enclosed between the opening and closing tags of our `Example`
+component. So now, we can access the `children` prop and render the children in
+the same way we would render any array of elements:
 
 ```jsx
 function Example(props) {
